@@ -1,0 +1,78 @@
+.footer {
+    color:$color-grey-light-1;
+    background-color: $color-gray-dark-3;
+    padding: 10rem 0;
+    font-size: 1.4rem;
+
+    @include respond(tabPort) {
+        padding: 8rem 0;
+    }
+
+    &_logo-box {
+        text-align: center; // because img is an inline element by default, it can be treated as text
+        margin-bottom: 8rem;
+        
+        @include respond(tabPort) {
+            margin-bottom: 6rem; // reduce margin at the bottom of the logo-box
+        }
+    }
+
+    &_logo {
+        width: 15rem;
+        height: auto;
+    }
+
+    &_navigation {
+        border-top: 1px solid $color-gray-dark;
+        padding-top: 2rem;
+        display: inline-block;
+
+        @include respond(tabPort) {
+            width: 100%;
+            text-align: center;
+            font-size: 1.3rem;
+        }
+    }
+
+    &_list {
+        list-style: none;
+    }
+
+    &_item {
+        display: inline-block;
+        &:not(:last-child) {
+            margin-right: 1.5rem;
+        }
+    }
+
+    &_link {
+        &:link, 
+        &:visited {
+            color:$color-grey-light-1;
+            background-color: $color-gray-dark-3; // not a direct child of the .footer class
+            text-decoration: none;
+            text-transform: uppercase;
+            display: inline-block;
+            transition: all .2s;
+        }
+
+        &:hover,
+        &:active {
+            color: $primary-color;
+            box-shadow: 0 1rem 2rem rgba($color-black, .4);
+            transform: rotate(5deg) scale(1.3);
+        }
+    }
+
+    &_copyright {
+        border-top: 1px solid $color-gray-dark;
+        padding-top: 2rem;
+        width: 80%;
+        float: right;
+
+        @include respond(tabPort) {
+            width: 100%;
+            float: none;
+        }
+    }
+}

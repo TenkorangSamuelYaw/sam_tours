@@ -1,0 +1,44 @@
+// Reset
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit; // Forcing all the children of the body element to have the box-sizing attribute.By default, the box-sizing is not inherited.   
+}
+
+html {            
+    // Defines what 1rem is
+    // 10px is 62.5% of the default 16px.         
+    font-size: 62.5%; 
+    
+    // 1rem for landscape tablet = 9px => 9px/10px * 62.5%
+    @include respond(tabLand) {
+        font-size: 56.25%;
+    }
+
+    // 1rem for portrait tablet = 8px => 8px/10px * 62.5%
+    @include respond(tabPort) {
+        font-size: 50%;
+    }
+    
+    // 1rem for phone = 6px => 6px/10px * 62.5%
+    @include respond(phone) {
+        font-size: 37.5%;
+    }
+
+
+    // 1rem for big desktop = 12px => 12px/10px * 62.5%
+    @include respond(bigDesktop) {
+        font-size: 75%;
+    }
+}
+
+body {
+    box-sizing: border-box;
+    padding: 3rem;
+    // From tablet portrait to screens below, remove the padding around entire webpage
+    @include respond(tabPort) {
+        padding: 0;
+    }
+}

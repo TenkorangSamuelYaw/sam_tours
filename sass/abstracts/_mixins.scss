@@ -1,0 +1,56 @@
+@mixin clearfix {
+    &::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+@mixin absoluteCenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+// Media Query manager
+/*
+0 - 600px       Phone
+600px - 900px   Tablet potrait
+900px - 1200px  Tablet landscape
+1200px - 1800px Normal styles
+1800px ++       Big desktop
+*/
+
+/*
+$breakpoint selection
+- phone
+- tabPort
+-tabLand
+- bigDesktop
+ */
+
+//  FIXME rems and ems are not affected by the root font-size we set in media queries. 
+//  Which means 1rem or 1em = the font-size coming from the browser and not the one we set
+// If you want the media queries to change with respect to the default font-size in the browser use em instead of px for the media queries.
+
+// ems are the best for media queries
+// 1em = 16px => 600px/16px = 37.5em
+@mixin respond($breakpoint) {
+
+    @if $breakpoint == phone {
+        @media (max-width: 37.5em) {@content}; // 600px
+    }
+
+    @if $breakpoint == tabPort {
+        @media (max-width: 56.25em) {@content}; // 900px
+    }
+
+    @if $breakpoint == tabLand {
+        @media (max-width: 75em) {@content}; // 1200px
+    }
+
+    @if $breakpoint == bigDesktop {
+        @media (min-width: 112.5em) {@content}; // 1800px
+    }
+}

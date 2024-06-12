@@ -1,0 +1,83 @@
+.story {
+    width: 75%;
+    margin: 0 auto;
+    box-shadow: 0 3rem 6rem rgba($color-black, .1);
+    background-color: rgba($color-white, .6);
+    border-radius: .3rem;
+    padding: 6rem;
+    padding-left: 9rem; // this corrects the transform: translate(-3rem); on line 33
+    font-size: $default-font-size;
+    transform: skewX(-12deg);
+
+    @include respond(tabPort) {
+        width: 100%;
+        padding: 4rem;
+        padding-left: 7rem;
+    }
+
+    @include respond(phone) {
+        transform: skewX(0);
+    }
+
+    &_shape {
+        width: 15rem;
+        height: 15rem;
+        float: left; // the &_text wil float around the &_shape
+        -webkit-shape-outside: circle(50% at 50% 50%);
+        shape-outside: circle(50% at 50% 50%); // Makes elements around the shape float circularly.
+
+        -webkit-clip-path: circle(50% at 50% 50%);
+        clip-path: circle(50% at 50% 50%); // actual circle for the profile pic.
+
+        // Placing space between the profile pic and the text around it
+        transform: translateX(-3rem) skewX(12deg);
+        position: relative;
+
+        @include respond(phone) {
+            transform: translateX(-3rem) skewX(0);
+        }
+    }
+    
+    &_img {
+        height: 100%; // Contain the img in the div.shape container
+        transform: translateX(-4rem) scale(1.4); // position's img directly in the centre and zooms in by 140%.
+        backface-visibility: hidden; // corrects weird appearance of img
+        transition: all .5s;
+    }
+
+    &_text {
+        transform: skewX(12deg);
+
+        @include respond(phone) {
+            transform: skewX(0);
+        }
+    }
+
+    // Styling for caption
+    &_caption {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        color: $color-white;
+        font-size: 1.7rem;
+        text-align: center;
+        text-transform: uppercase;
+        // Before hover effect, caption should be below and hidden
+        transform: translate(-50%, 20%);
+        opacity: 0;
+        transition: all .5s;
+        backface-visibility: hidden;
+    }
+
+    // When the story div is hovered.
+    &:hover &_caption {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+
+    &:hover &_img {
+        transform: translateX(-4rem) scale(1); // position's img directly in the centre and zooms out by 100%.
+        filter: blur(3px) brightness(80%);
+
+    }
+}

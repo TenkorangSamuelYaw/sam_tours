@@ -1,0 +1,177 @@
+.navigation {
+    // input element
+   &__checkbox {
+    display: none; // hide checkox.
+   } 
+
+   // label after input element
+   &__button {
+    background-color: $color-white;
+    width: 7rem;
+    height: 7rem;
+    border-radius: 50%;
+    position: fixed;
+    top: 6rem;
+    right: 6rem;  // Using top and right to be 6rem covers the background without been seen.
+    z-index: 2000;
+    box-shadow: 0 1rem 3rem rgba($color-black, .2);
+    text-align: center;
+    cursor: pointer;
+
+    // move position of button up for tablet portrait and mobile devices
+    @include respond(tabPort) {
+        top: 4rem;
+        right: 4rem;
+    }
+
+    @include respond(phone) {
+        top: 3rem;
+        right: 3rem;
+    }
+
+   }
+
+   // TODO Revise this code. It's the background for the menu
+   &__background {
+    height: 6rem;
+    width: 6rem;
+    border-radius: 50%;
+    position: fixed;
+    top: 6.5rem;
+    right: 6.5rem;
+    background-image: radial-gradient($primary-color-light, $primary-color-dark); // Starts in the middle of an and goes everywhere in the outside direction.
+    z-index: 1000;
+
+    // FIXME cubic-beizer function is used to create our own custom transition timing
+    transition: transform .8s cubic-bezier(0.83, 0, 0.17, 1);
+
+    // move position of background up for tablet portrait and mobile devices
+    @include respond(tabPort) {
+        top: 4.5rem;
+        right: 4.5rem;
+    }
+
+    @include respond(phone) {
+        top: 3.5rem;
+        right: 3.5rem;
+    }
+
+   }
+
+   // A huge element, acting as the background for the list items. 
+   &__nav {
+    height: 100vh;
+    width: 0%; // collapses nav menu until the checkbox is checked
+    position: fixed; // navigation should stay even if you scroll.
+    top: 0;
+    left: 0;
+    z-index: 1500;
+    opacity: 0; // hides nav menu until the checkbox is checked
+
+    transition: all .8s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+   }
+
+   // Position list items in the middle of the webpage.
+   // It's actually the ul element that is been positioned. ul is a block level element.
+   &__list {
+    @include absoluteCenter;
+    list-style: none; // get rid of the bullets. 
+    text-align: center; // aligns text in the li elements.
+    width: 100%;
+   }
+
+   // li is a block element.
+   &__item {
+    margin: 1rem;
+   }
+
+   &__link {
+    &:link,
+    &:visited {
+        display: inline-block;
+        font-size: 3rem;
+        font-weight: 300;
+        padding: 1rem 2rem;
+        color: $color-white;
+        text-decoration: none; // remove the underline from the links.
+        text-transform: uppercase;
+        background-image: linear-gradient(120deg, transparent 0%, transparent 50%, $color-white 50%); // README this creates a solid color gradient.
+        background-size: 220%; // TODO play with different % values, and see how diff values shift the solid color gradient to the right.
+        transition: all .4s;
+    }
+
+    &:hover,
+    &:active {
+       background-position: 100%; //TODO Read - background-position shifts to the left side, using background-size behaves weird here.
+       color: $primary-color;
+       transform: translateX(1rem); // move a bit to the right.
+    }
+    
+    // span for the numbering list.
+    span {
+        margin-right: 1.5rem;
+        display: inline-block;
+    }
+   }
+
+   // FIXME Observe the use of adjacent and not sibling selector, when the checkbox is clicked it is the background we want and not the label (sibling selector)
+   &__checkbox:checked ~ &__background {
+    transform: scale(80);
+   }
+
+   &__checkbox:checked ~ &__nav {
+    width: 100%;
+    opacity: 1;
+   }
+
+   // icon inside the label
+   &__icon {
+    position: relative;
+    margin-top: 3.5rem;
+    &,
+    &::before, // a pseudo element of width 3rem and height 2px
+    &::after {  // a pseudo element of width 3rem and height 2px
+        width: 3rem;
+        height: 2px;
+        background-color: $color-gray-dark-3;
+        display: inline-block;
+        transition: all .2s;
+    }
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+    }
+    &::before {top: -.8rem;}
+    &::after {top: .8rem;}
+   }
+
+   // when button is hovered, space out pseudo elements
+   &__button:hover &__icon::before {
+    top: -1rem;
+   }
+   &__button:hover &__icon::after {
+    top: 1rem;
+   }
+
+   //FIXME when checkedbox is checked (or label is clicked or), collapse the menu bar
+   // remove the middle bar, the actual span element
+   &__checkbox:checked + &__button &__icon {
+    background-color: transparent;
+   }
+
+   // rotate before pseudo element by 45 or 135(for more effects) deg
+   &__checkbox:checked + &__button &__icon::before {
+    top: 0;
+    transform: rotate(135deg);
+   }
+
+   // rotate after pseudo element by -45 or -135 deg
+   &__checkbox:checked + &__button &__icon::after {
+    top: 0;
+    transform: rotate(-135deg);
+   }
+}

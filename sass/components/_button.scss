@@ -1,0 +1,99 @@
+.btn {
+    &,
+    &:link,
+    &:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.5rem 4rem;
+    font-size: $default-font-size;
+    display: inline-block;
+    border-radius: 10rem;
+    transition: all 0.2s;
+    //This is the parent for the .btn::after pseudo element
+    position: relative;
+
+    // Change for <button> element
+    border: none;
+    cursor: pointer;
+
+    }
+
+    &:hover {
+        transform: translateY(-.3rem);
+        box-shadow:  0 1rem 2rem rgba($color-black, 0.3);
+    }
+
+    &:active {
+        transform: translateY(-.1rem);
+        box-shadow:  0 .5rem 1rem rgba($color-black, 0.3);
+    }
+
+    &--white {
+        background-color: $color-white;
+        color:$color-gray-dark;
+    }
+
+    &--green {
+        background-color: $primary-color;
+        color:$color-white;
+    }
+
+    &::after {
+        content: "";
+        display: inline-block;
+        // Set the height and width to 100% of the bottom
+        height: 100%;
+        width: 100%;
+        border-radius: 10rem;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        transition: all .4s;
+    }
+
+    &--white::after {
+        background-color: $color-white;
+    }
+
+    &--green::after {
+        background-color: $primary-color;
+    }
+
+    // When I hover the button, then I want some styles
+    &:hover::after {
+        transform: scaleX(1.4) scaleY(1.6);
+        opacity: 0; // Make it invisible
+    }
+
+    // This animation should be only for this button
+    &--animated {
+        animation: moveInBottom .5s ease-out .75s;
+        animation-fill-mode: backwards; // Automatically apply styles of 0% moveInBottom before animation starts
+    }
+}
+
+.btn-text {
+    &:link, 
+    &:visited {
+        font-size: $default-font-size;
+        color: $primary-color;
+        display: inline-block;
+        text-decoration: none;
+        border-bottom: .1rem solid $primary-color; // Thick line under the a tag
+        padding: .3rem; // space between the a tag and the line
+        transition: all .2s;
+    }
+
+    &:hover {
+       background-color: $primary-color;
+       color:$color-white;
+       box-shadow: 0 1rem 2rem rgba($color-black, .15); // 2rem is for the blur.
+       transform: translateY(-.2rem);
+    }
+
+    &:active {
+        box-shadow: 0 .5rem 1rem rgba($color-black, .15);
+        transform: translateY(0);
+    }
+}
